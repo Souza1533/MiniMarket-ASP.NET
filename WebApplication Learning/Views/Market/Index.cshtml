@@ -1,0 +1,14 @@
+﻿
+@using Microsoft.AspNetCore.Http
+
+@if (Context.Session.GetString("IsLoggedIn") == "true")
+{
+    <h1 class="text-center">Create your Product</h1>
+    <a class="btn btn-secondary btn-block" asp-controller="Market" asp-action="Create" role="button">Crate New Product</a>
+}
+else
+{
+    <div class="text-center">
+        <h2>Crie uma conta ou faca login</h2>
+    </div>
+}

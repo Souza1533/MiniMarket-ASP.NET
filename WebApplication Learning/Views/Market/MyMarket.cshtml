@@ -1,0 +1,28 @@
+﻿@model List<ProductModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center mt-5">
+    <h1 class="display-4">Welcome to Mini-Market</h1>
+    <p>Manage your products and inventory easily.</p>
+
+    <a class="btn btn-secondary btn-block" asp-controller="Market" asp-action="Create" role="button">Crate a Product</a>
+
+    <div class="mt-4">
+            <h2 class="display-4">Products created so far</h2>
+            <div></div>
+
+            @if (Model != null && Model.Any())
+            {
+                foreach (ProductModel product in Model)
+                {
+                    <lu scope="row">@product.Id</lu>
+                    <lu>-> @product.Name</lu>
+                    <lu>@product.Price</lu>
+                }
+            }
+
+        
+    </div>
+</div>
