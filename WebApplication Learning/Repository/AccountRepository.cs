@@ -17,6 +17,7 @@ namespace WebApplication_Learning.Repository
             return account;
         }
 
+
         public List<AccountModel> FindAll()
         {
             return _appDbContext.Accounts.ToList();

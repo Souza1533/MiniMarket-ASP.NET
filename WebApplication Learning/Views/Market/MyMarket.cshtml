@@ -7,22 +7,40 @@
     <h1 class="display-4">Welcome to Mini-Market</h1>
     <p>Manage your products and inventory easily.</p>
 
-    <a class="btn btn-secondary btn-block" asp-controller="Market" asp-action="Create" role="button">Crate a Product</a>
+    <a class="btn btn-primary btn-lg mb-4" asp-controller="Market" asp-action="Create" role="button">
+        <i class="bi bi-plus-circle"></i> Create a Product
+    </a>
 
     <div class="mt-4">
-            <h2 class="display-4">Products created so far</h2>
-            <div></div>
-
-            @if (Model != null && Model.Any())
-            {
-                foreach (ProductModel product in Model)
-                {
-                    <lu scope="row">@product.Id</lu>
-                    <lu>-> @product.Name</lu>
-                    <lu>@product.Price</lu>
-                }
-            }
-
+        <h2 class="mb-3">Products created so far</h2>
         
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered shadow-sm">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model)
+                        {
+                            <tr>
+                                <td>@product.Id</td>
+                                <td class="text-start">@product.Name</td>
+                                <td class="text-success fw-bold">@product.Price.ToString("C")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">No products found yet.</div>
+        }
     </div>
 </div>

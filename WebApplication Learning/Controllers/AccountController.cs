@@ -19,7 +19,7 @@ namespace WebApplication_Learning.Controllers
 
             HttpContext.Session.SetString("IsLoggedIn", "true");
 
-            return RedirectToAction("Index", "Perfil");
+            return RedirectToAction("Index", "Home");
         }
 
 

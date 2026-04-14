@@ -5,6 +5,5 @@ namespace WebApplication_Learning.Repository
     {
         List<AccountModel> FindAll();
         AccountModel Add(AccountModel account);
-        string? BuscarPorId(int value);
     }
 }

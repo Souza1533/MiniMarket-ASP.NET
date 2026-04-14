@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Net.NetworkInformation;
 using WebApplication_Learning.Repository;
 
 namespace WebApplication_Learning.Controllers
@@ -12,6 +14,10 @@ namespace WebApplication_Learning.Controllers
         }
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetString("IsLoggedIn") == "true")
+            {
+                return RedirectToAction("MyMarket", "Market");
+            }
             return View();
         }
 
