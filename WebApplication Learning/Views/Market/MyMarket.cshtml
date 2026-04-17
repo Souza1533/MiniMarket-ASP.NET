@@ -28,9 +28,16 @@
                     <tbody>
                         @foreach (var product in Model)
                         {
-                            <tr>
-                                <td>@product.Id</td>
-                                <td class="text-start">@product.Name</td>
+                            <tr>                             
+                                <th>@product.Id</th>
+
+                                <td class="text-start">@product.Name
+                                    <div class="btn-group" role="group">
+                                        <a class="btn btn-danger" asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id"></a>
+                                    </div>
+                                </td>
+
+
                                 <td class="text-success fw-bold">@product.Price.ToString("C")</td>
                             </tr>
                         }
@@ -44,3 +51,5 @@
         }
     </div>
 </div>
+
+                                   

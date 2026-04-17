@@ -15,6 +15,15 @@ namespace WebApplication_Learning.Controllers
             return View();
         }
 
+        public IActionResult Delete(int id)
+        {
+            var product = _productRepository.Delete(id);
+            if (product != null)
+                return RedirectToAction("MyMarket", "Market");
+
+            return NotFound();
+        }
+
         [HttpPost]
         public IActionResult Create(ProductModel product)
         {

@@ -18,9 +18,23 @@ namespace WebApplication_Learning.Repository
             return product;
         }
 
-        public List<ProductModel> FindAll()
+        public List<ProductModel> ShowAll()
         {
             return _appDbContext.Products.ToList();
+        }
+
+        public ProductModel Delete(int id)
+        {
+            var product = _appDbContext.Products.Find(id);
+            if (product != null) { 
+                _appDbContext.Products.Remove(product);
+                _appDbContext.SaveChanges();
+                return product;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

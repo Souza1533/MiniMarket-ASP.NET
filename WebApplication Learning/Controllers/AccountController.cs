@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebApplication_Learning.Repository;
 
 namespace WebApplication_Learning.Controllers
@@ -13,7 +12,7 @@ namespace WebApplication_Learning.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(AccountModel account)
+        public IActionResult Add(AccountModel account)
         {
             _accountRepository.Add(account);
 
@@ -22,6 +21,6 @@ namespace WebApplication_Learning.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
+        
     }
 }

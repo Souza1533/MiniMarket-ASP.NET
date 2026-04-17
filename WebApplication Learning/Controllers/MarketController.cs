@@ -28,7 +28,7 @@ namespace WebApplication_Learning.Controllers
 
         public IActionResult MyMarket()
         {
-            List<ProductModel> products = _productRepository.FindAll();
+            List<ProductModel> products = _productRepository.ShowAll();
             return View(products);
         }
     }
