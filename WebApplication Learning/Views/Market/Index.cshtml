@@ -1,14 +1,75 @@
-﻿
+﻿@model List<ProductModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
 @using Microsoft.AspNetCore.Http
 
 @if (Context.Session.GetString("IsLoggedIn") == "true")
 {
-    <h1 class="text-center">Create your Product</h1>
-    <a class="btn btn-secondary btn-block" asp-controller="Market" asp-action="Create" role="button">Crate New Product</a>
+
+<div class="text-center mt-5">
+    <h1 class="display-4">Welcome to Mini-Market</h1>
+    <p>Manage your products and inventory easily.</p>
+
+    <a class="btn btn-primary btn-lg mb-4" asp-controller="Product" asp-action="Create" role="button">
+        <i class="bi bi-plus-circle"></i> Create a Product
+    </a>
+
+    <div class="mt-4">
+        <h2 class="mb-3">Products created so far</h2>
+        
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered shadow-sm">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model)
+                        {
+                            <tr>                             
+                                <th>@product.Id</th>
+
+                                <td class="text-start d-flex justify-content-between align-items-center">
+                                    @product.Name
+                                    <div class="btn-group" role="group">
+                                        <a class="btn btn-danger btn-sm" asp-controller="Product" asp asp-action="Delete" asp-route-id="@product.Id">Delete</a>
+                                        <a class="btn btn-secondary btn-sm" asp-controller="Product" asp asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+                                    </div>
+                                </td>
+
+
+                                <td class="text-success fw-bold">@product.Price.ToString("C")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">No products found yet.</div>
+        }
+    </div>
+</div>
 }
 else
 {
-    <div class="text-center">
-        <h2>Crie uma conta ou faca login</h2>
+    <div class="text-center mt-5">
+        <div class="display-1 text-danger"><i class="bi bi-shield-lock"></i></div>
+        <h1 class="display-4">Oops! Restricted Access</h1>
+        <p class="lead">You need to be logged in to manage the Mini-Market inventory.</p>
+        <hr class="my-4">
+        <p>Click the button below to log in to your account.</p>
+        <a class="btn btn-primary btn-lg" asp-controller="Home" asp-action="index" role="button">Login</a>
+        <a class="btn btn-outline-secondary btn-lg" asp-controller="Home" asp-action="Index" role="button">Back to homepage</a>
     </div>
 }
+
+                                   

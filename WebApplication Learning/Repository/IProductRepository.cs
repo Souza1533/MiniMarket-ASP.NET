@@ -4,8 +4,10 @@ namespace WebApplication_Learning.Repository
 {
     public interface IProductRepository
     {
-        ProductModel Delete(int id);
-        List<ProductModel> ShowAll();
         ProductModel Add(ProductModel product);
+        bool Delete(int id);
+        ProductModel Update(ProductModel product);
+        ProductModel GetId(int id);
+        List<ProductModel> GetAll();
     }
 }

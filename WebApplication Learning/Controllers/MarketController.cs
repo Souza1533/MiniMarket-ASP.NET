@@ -12,24 +12,29 @@ namespace WebApplication_Learning.Controllers
         {
             _productRepository = productRepository;
         }
+
+        // Criar um mercado e associar produtos a ele e a uma conta de usuário
+
+        /*[HttpPost]
+        public IActionResult Add(MarketModel market)
+        {
+            _marketRepository.Add(market);
+
+            HttpContext.Session.SetString("IsLoggedIn", "true");
+
+            return RedirectToAction("Index", "Market");
+        }*/
+
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("IsLoggedIn") == "true")
             {
-                return RedirectToAction("MyMarket", "Market");
+                List<ProductModel> products = _productRepository.GetAll();
+                return View(products);
             }
-            return View();
+        
+            return View();    
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        public IActionResult MyMarket()
-        {
-            List<ProductModel> products = _productRepository.ShowAll();
-            return View(products);
-        }
     }
 }

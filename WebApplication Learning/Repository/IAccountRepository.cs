@@ -3,7 +3,9 @@ namespace WebApplication_Learning.Repository
 {
     public interface IAccountRepository
     {
-        List<AccountModel> ShowAll();
         AccountModel Add(AccountModel account);
+        bool Delete(int id);
+        AccountModel GetId(int id);
+        List<AccountModel> GetAll();
     }
 }

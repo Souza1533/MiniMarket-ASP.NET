@@ -18,7 +18,27 @@ namespace WebApplication_Learning.Repository
             return account;
         }
 
-        public List<AccountModel> ShowAll()
+        public bool Delete(int id)
+        {
+            AccountModel account = GetId(id);
+
+            if (account == null) throw new Exception($"Account not found.");
+
+            _appDbContext.Accounts.Remove(account);
+            _appDbContext.SaveChanges();
+
+            return true;
+        }
+        
+        public AccountModel GetId(int id)
+        {
+            var account = _appDbContext.Accounts.Find(id);
+
+            if (account == null) throw new Exception($"Account not found.");
+            return account;
+        }
+
+        public List<AccountModel> GetAll()
         {
             return _appDbContext.Accounts.ToList();
         }

@@ -6,18 +6,8 @@ namespace WebApplication_Learning.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index(string show_)
+        public IActionResult Index()
         {
-            if (show_ == "show")
-            {
-                ViewBag.ShowLogin = true;
-            }
-
-            else
-            {
-                ViewBag.ShowLogin = false;
-            }
-
             return View();
         }
 

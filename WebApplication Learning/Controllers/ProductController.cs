@@ -17,19 +17,51 @@ namespace WebApplication_Learning.Controllers
 
         public IActionResult Delete(int id)
         {
-            var product = _productRepository.Delete(id);
-            if (product != null)
-                return RedirectToAction("MyMarket", "Market");
+            var product = _productRepository.GetId(id);
 
-            return NotFound();
+            return View(product);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(ProductModel product)
+        {
+            var id = product.Id;
+
+            _productRepository.Delete(id);
+
+            return RedirectToAction("Index", "Market");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            ProductModel product = _productRepository.GetId(id);
+            return View(product);
+        }
+
+
+        [HttpPost]
+        public IActionResult Edit(ProductModel product)
+        {
+            _productRepository.Update(product);
+
+            return RedirectToAction("Index", "Market");
+        }
+
+        public IActionResult Create()
+        { 
+            return View();
         }
 
         [HttpPost]
         public IActionResult Create(ProductModel product)
         {
-            _productRepository.Add(product);
-            return RedirectToAction("MyMarket", "Market");
-
+            if (ModelState.IsValid)
+            {
+                _productRepository.Add(product);
+                return RedirectToAction("Index", "Market");
+            }
+            
+            return View(product);
         }
 
 

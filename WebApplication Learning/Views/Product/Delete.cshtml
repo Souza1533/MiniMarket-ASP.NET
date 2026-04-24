@@ -1,0 +1,18 @@
+﻿@model ProductModel
+@{
+    ViewData["Title"] = "Edit you product";
+}
+
+
+<h1 class="text-center">Are you sure you want to delete (@Model.Name)?</h1>
+
+<form asp-controller="Product" asp-action="Delete" method="post" style="display:inline;">
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a class="btn btn-secondary btn-block" asp-controller="Market" asp-action="Index" role="button">Back</a>
+        </div>
+</form>
+

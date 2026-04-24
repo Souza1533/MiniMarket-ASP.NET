@@ -17,24 +17,47 @@ namespace WebApplication_Learning.Repository
 
             return product;
         }
+        public bool Delete(int id)
+        {
+            ProductModel product = GetId(id);
 
-        public List<ProductModel> ShowAll()
+            if (product == null) throw new System.Exception("Produto nao encontrado");
+
+            _appDbContext.Products.Remove(product);
+            _appDbContext.SaveChanges();
+
+            return true;
+    
+        }
+
+        public ProductModel Update (ProductModel product)
+        {
+            ProductModel productDB = GetId(product.Id);
+
+            productDB.Name = product.Name;
+            productDB.Price = product.Price;
+
+            _appDbContext.Products.Update(productDB);
+            _appDbContext.SaveChanges();
+
+            return productDB;
+        }
+
+        public ProductModel GetId(int id)
+        {
+            var product = _appDbContext.Products.Find(id);
+
+            if (product == null) throw new System.Exception("Produto nao encontrado");
+
+            return product;           
+        }
+
+        public List<ProductModel> GetAll()
         {
             return _appDbContext.Products.ToList();
         }
 
-        public ProductModel Delete(int id)
-        {
-            var product = _appDbContext.Products.Find(id);
-            if (product != null) { 
-                _appDbContext.Products.Remove(product);
-                _appDbContext.SaveChanges();
-                return product;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        
+
     }
 }
