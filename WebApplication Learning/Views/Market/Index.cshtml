@@ -1,63 +1,75 @@
 ﻿@model List<ProductModel>
+@using Microsoft.AspNetCore.Http
 @{
     ViewData["Title"] = "Home Page";
+    var IsLoggedIn = Context.Session.GetString("IsLoggedIn") == "true";
+    var MarketCreated = Context.Session.GetString("MarketCreated") == "true";
+
 }
 
-@using Microsoft.AspNetCore.Http
 
-@if (Context.Session.GetString("IsLoggedIn") == "true")
+@if (IsLoggedIn)
 {
+    @if (!MarketCreated)
+    {
+        <div class="alert alert-warning text-center mt-4">
+            <h4 class="alert-heading">No Market Found!</h4>
+            <p>You haven't created a market yet. Please create one to manage your products and inventory.</p>
+            <hr>
+            <a class="btn btn-primary btn-lg" asp-controller="Market" asp-action="Create" role="button">Create Market</a>
+        </div>
+    }
 
-<div class="text-center mt-5">
-    <h1 class="display-4">Welcome to Mini-Market</h1>
-    <p>Manage your products and inventory easily.</p>
+    <div class="text-center mt-5">
+        <h1 class="display-4">Welcome to Mini-Market</h1>
+        <p>Manage your products and inventory easily.</p>
 
-    <a class="btn btn-primary btn-lg mb-4" asp-controller="Product" asp-action="Create" role="button">
-        <i class="bi bi-plus-circle"></i> Create a Product
-    </a>
+        <a class="btn btn-primary btn-lg mb-4" asp-controller="Product" asp-action="Create" role="button">
+            <i class="bi bi-plus-circle"></i> Create a Product
+        </a>
 
-    <div class="mt-4">
-        <h2 class="mb-3">Products created so far</h2>
+        <div class="mt-4">
+            <h2 class="mb-3">Products created so far</h2>
         
-        @if (Model != null && Model.Any())
-        {
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered shadow-sm">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Product Name</th>
-                            <th scope="col">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var product in Model)
-                        {
-                            <tr>                             
-                                <th>@product.Id</th>
-
-                                <td class="text-start d-flex justify-content-between align-items-center">
-                                    @product.Name
-                                    <div class="btn-group" role="group">
-                                        <a class="btn btn-danger btn-sm" asp-controller="Product" asp asp-action="Delete" asp-route-id="@product.Id">Delete</a>
-                                        <a class="btn btn-secondary btn-sm" asp-controller="Product" asp asp-action="Edit" asp-route-id="@product.Id">Edit</a>
-                                    </div>
-                                </td>
-
-
-                                <td class="text-success fw-bold">@product.Price.ToString("C")</td>
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered shadow-sm">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Price</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        }
-        else
-        {
-            <div class="alert alert-info">No products found yet.</div>
-        }
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model)
+                            {
+                                <tr>
+                                    <th>@product.Id</th>
+
+                                    <td class="text-start d-flex justify-content-between align-items-center">
+                                        @product.Name
+                                        <div class="btn-group" role="group">
+                                            <a class="btn btn-danger btn-sm" asp-controller="Product" asp asp-action="Delete" asp-route-id="@product.Id">Delete</a>
+                                            <a class="btn btn-secondary btn-sm" asp-controller="Product" asp asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+                                        </div>
+                                    </td>
+
+
+                                    <td class="text-success fw-bold">@product.Price.ToString("C")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">No products found yet.</div>
+            }
+        </div>
     </div>
-</div>
 }
 else
 {

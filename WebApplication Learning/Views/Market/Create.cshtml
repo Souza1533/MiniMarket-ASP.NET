@@ -1,0 +1,26 @@
+﻿@model MarketModel
+@{
+    ViewData["Title"] = "Create your Product";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Create a Market</h1>
+</div>
+
+<form asp-controller="Market" asp-action="Create" method="post">
+
+    <div class="form-group">
+        <label for="marketName">Name</label>
+        <input type="text" asp-for="Name" class="form-control" placeholder="Enter market name">
+        @Html.ValidationMessageFor(x => x.Name)
+    </div>
+
+    <div class="form-group">
+        <label for="marketDescription">Description</label>
+        <input type="text" asp-for="Description" class="form-control" placeholder="It's cool insert a description for your market">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a class="btn btn-secondary btn-block" asp-controller="Market" asp-action="Index" role="button">Back</a>
+
+</form>

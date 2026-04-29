@@ -1,18 +1,14 @@
-﻿
-
-
-                    
+﻿@model MarketModel              
 @{
     ViewData["Title"] = "Edit Account";
 }
 
-@if (Context.Session.GetString("IsLoggedIn") == "true")
-{
     <h2 class="text-center">Edit your account here</h2>
     
     <form asp-controller="Account" asp-action="Edit" method="post" class="mt-4">
     </form>
-}
+
+    
 
 
 

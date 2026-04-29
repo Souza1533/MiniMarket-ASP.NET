@@ -25,11 +25,14 @@ namespace WebApplication_Learning.Controllers
         [HttpPost]
         public IActionResult Delete(ProductModel product)
         {
+            if (product.Id <= 0)
+                return BadRequest();
+
             var id = product.Id;
 
             _productRepository.Delete(id);
 
-            return RedirectToAction("Index", "Market");
+            return RedirectToAction(nameof(MarketController.Index), "Market");
         }
 
         public IActionResult Edit(int id)
@@ -42,9 +45,13 @@ namespace WebApplication_Learning.Controllers
         [HttpPost]
         public IActionResult Edit(ProductModel product)
         {
-            _productRepository.Update(product);
+            if (!ModelState.IsValid)
+            {
+                return View(product);
+            }
 
-            return RedirectToAction("Index", "Market");
+            _productRepository.Update(product);
+            return RedirectToAction(nameof(MarketController.Index), "Market");
         }
 
         public IActionResult Create()
@@ -55,13 +62,13 @@ namespace WebApplication_Learning.Controllers
         [HttpPost]
         public IActionResult Create(ProductModel product)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _productRepository.Add(product);
-                return RedirectToAction("Index", "Market");
+                return View(product);
             }
-            
-            return View(product);
+
+            _productRepository.Add(product);
+            return RedirectToAction("Index", "Market");
         }
 
 

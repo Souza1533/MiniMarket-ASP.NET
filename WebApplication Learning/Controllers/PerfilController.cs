@@ -13,7 +13,16 @@ namespace WebApplication_Learning.Controllers
 
         public IActionResult Index()
         {
+            var IsLoggedIn = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            var MarketCreated = HttpContext.Session.GetString("MarketCreated") == "true";
+
+            if (IsLoggedIn && MarketCreated) 
+            {
+                return RedirectToAction(nameof(MarketController.NotLogged), "Market");
+            }
             return View();
         }
+
+
     }
 }
